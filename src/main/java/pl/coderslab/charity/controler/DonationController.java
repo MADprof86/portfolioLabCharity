@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.model.Category;
+import pl.coderslab.charity.model.Donation;
 import pl.coderslab.charity.model.Institution;
 import pl.coderslab.charity.repository.CategoryRepository;
+import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
 
 import java.util.List;
@@ -20,11 +22,14 @@ public class DonationController {
     private InstitutionRepository institutionRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private DonationRepository donationRepository;
     @GetMapping()
     public String getDonationForm(Model model){
         List<Institution> institutions = institutionRepository.findAll();
         List<Category> categories = categoryRepository.findAll();
 
+        model.addAttribute("donation", new Donation());
         model.addAttribute("institutions",institutions);
         model.addAttribute("categories",categories);
         return "donation-form";

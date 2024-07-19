@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="pl">
   <head>
@@ -44,7 +45,7 @@
       </div>
     </header>
 
-    <section class="form--steps">
+    <section class="form--steps" >
       <div class="form--steps-instructions">
         <div class="form--steps-container">
           <h3>Ważne!</h3>
@@ -67,7 +68,7 @@
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <form action="form-confirmation.html" method="post">
+        <form:form action="form-confirmation.html" method="post" modelAttribute="donation"  >
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
@@ -94,6 +95,35 @@
           </div>
 
           <!-- STEP 2 -->
+        <div data-step="3">
+          <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+          <c:forEach var="institution" items="${institutions}">
+
+
+          <div class="form-group form-group--checkbox">
+            <label>
+              <input type="radio" name="institution" value="${institution}" />
+              <span class="checkbox radio"></span>
+              <span class="description">
+                  <div class="title">${institution.name}”</div>
+                  <div class="subtitle">
+                    ${institution.description}
+                  </div>
+                </span>
+            </label>
+          </div>
+          </c:forEach>
+
+
+          <div class="form-group form-group--buttons">
+            <button type="button" class="btn prev-step">Wstecz</button>
+            <button type="button" class="btn next-step">Dalej</button>
+          </div>
+        </div>
+
+
+
+          <!-- STEP 4 -->
           <div data-step="2">
             <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
 
@@ -101,46 +131,6 @@
               <label>
                 Liczba 60l worków:
                 <input type="number" name="bags" step="1" min="1" />
-              </label>
-            </div>
-
-            <div class="form-group form-group--buttons">
-              <button type="button" class="btn prev-step">Wstecz</button>
-              <button type="button" class="btn next-step">Dalej</button>
-            </div>
-          </div>
-
-
-
-          <!-- STEP 4 -->
-          <div data-step="3">
-            <h3>Wybierz organizacje, której chcesz pomóc:</h3>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="radio" name="organization" value="old" />
-                <span class="checkbox radio"></span>
-                <span class="description">
-                  <div class="title">Fundacja “Bez domu”</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc dla osób nie posiadających miejsca
-                    zamieszkania
-                  </div>
-                </span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="radio" name="organization" value="old" />
-                <span class="checkbox radio"></span>
-                <span class="description">
-                  <div class="title">Fundacja “Dla dzieci"</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji
-                    życiowej.
-                  </div>
-                </span>
               </label>
             </div>
 
@@ -253,7 +243,7 @@
               <button type="submit" class="btn">Potwierdzam</button>
             </div>
           </div>
-        </form>
+        </form:form>
       </div>
     </section>
 

@@ -98,12 +98,18 @@
         <ul class="help--slides-items">
             <c:forEach var="institution" items="${insitutions}" varStatus="status">
                 <c:choose>
-                    <c:when test="${status.index %2 == 0}">
+                    <c:when test="${status.index % 2 == 0}">
                         <li>
                             <div class="col">
                                 <div class="title">${institution.name}</div>
                                 <div class="subtitle">Cel i misja: ${institution.description}</div>
                             </div>
+                        <c:if test="${status.last}">
+                            <div class="col">
+                                <div class="title"> </div>
+                                <div class="subtitle"> </div>
+                            </div>
+                            </li></c:if>
                     </c:when>
                     <c:otherwise>
 
@@ -115,6 +121,7 @@
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
+
 
         </ul>
     </div>
