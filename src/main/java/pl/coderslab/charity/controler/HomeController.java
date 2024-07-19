@@ -34,4 +34,5 @@ public class HomeController {
         model.addAttribute("insitutions",institutions);
         return "index";
     }
+
 }

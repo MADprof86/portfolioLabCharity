@@ -7,14 +7,14 @@
 
 
 
-<nav class="container container--70">
+<nav class="container container--70" id="start">
         <ul class="nav--actions">
             <li><a href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
             <li><a href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
         </ul>
 
         <ul>
-            <li><a href="#mainPage" class="btn btn--without-border active">Start</a></li>
+            <li><a href=".." class="btn btn--without-border active">Start</a></li>
             <li><a href="#stats" class="btn btn--without-border">O co chodzi?</a></li>
             <li><a href="#about-us" class="btn btn--without-border">O nas</a></li>
             <li><a href="#help" class="btn btn--without-border">Fundacje i organizacje</a></li>

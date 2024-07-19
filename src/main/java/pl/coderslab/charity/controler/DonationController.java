@@ -10,6 +10,6 @@ public class DonationController {
 
     @GetMapping()
     public String getDonationForm(){
-        return "form";
+        return "donation-form";
     }
 }
