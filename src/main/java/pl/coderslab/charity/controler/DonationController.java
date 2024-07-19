@@ -1,9 +1,15 @@
 package pl.coderslab.charity.controler;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.model.Category;
 import pl.coderslab.charity.model.Donation;
@@ -11,6 +17,7 @@ import pl.coderslab.charity.model.Institution;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.service.DonationService;
 
 import java.util.List;
 
@@ -24,6 +31,8 @@ public class DonationController {
     private CategoryRepository categoryRepository;
     @Autowired
     private DonationRepository donationRepository;
+    @Autowired
+    private DonationService donationService;
     @GetMapping()
     public String getDonationForm(Model model){
         List<Institution> institutions = institutionRepository.findAll();
@@ -33,5 +42,22 @@ public class DonationController {
         model.addAttribute("institutions",institutions);
         model.addAttribute("categories",categories);
         return "donation-form";
+    }
+    @PostMapping("/form")
+    public String saveDonation(@ModelAttribute("donation") @Valid Donation donation,
+                               BindingResult result, Model model){
+
+        System.out.println(donation.toString());
+
+            if(result.hasErrors()){
+                return "donation-form";
+            }
+            try{
+                donationService.save(donation);
+            }
+            catch (Exception e){
+                model.addAttribute("error", e.getMessage());
+            }
+            return "index";
     }
 }

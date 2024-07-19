@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.Value;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString(includeFieldNames = true)
 public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +29,9 @@ public class Donation {
     @JoinColumn
     private  Institution institution;
 
+    private String phone;
     private String street;
+
     private String city;
 
     private String zipCode;

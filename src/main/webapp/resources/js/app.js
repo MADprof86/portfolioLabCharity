@@ -164,9 +164,56 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
       // TODO: get data from inputs and show them in summary
+      if (this.currentStep === 5) {
+        this.updateSummary();
+      }
+    }
+      updateSummary() {
+        const summary = this.form.querySelector('.summary');
+
+        // Step 1: Categories
+        const selectedCategories = Array.from(this.form.querySelectorAll('input[name="categories"]:checked'))
+            .map(checkbox => checkbox.nextElementSibling.nextElementSibling.textContent.trim())
+            .join(', ');
+
+        summary.querySelector('h4').textContent = `Oddajesz: ${selectedCategories || 'Brak danych'}`;
+
+        // Step 2: Number of Bags
+        const bags = this.form.querySelector('input[name="bags"]').value;
+        summary.querySelector('.summary--text').textContent = `${bags} worki ubrań w dobrym stanie`;
+
+        // Step 3: Organization
+        const selectedInstitution = this.form.querySelector('input[name="institution"]:checked');
+        const institutionName = selectedInstitution ? selectedInstitution.nextElementSibling.nextElementSibling.querySelector('.title').textContent : 'Brak danych';
+        summary.querySelectorAll('.summary ul li')[1].textContent = `Dla fundacji "${institutionName}"`;
+
+        // Step 4: Address and Pickup Details
+        const address = this.form.querySelector('input[name="address"]').value;
+        const city = this.form.querySelector('input[name="city"]').value;
+        const postcode = this.form.querySelector('input[name="postcode"]').value;
+        const phone = this.form.querySelector('input[name="phone"]').value;
+        const pickupDate = this.form.querySelector('input[name="data"]').value;
+        const pickupTime = this.form.querySelector('input[name="time"]').value;
+        const pickupComment = this.form.querySelector('textarea[name="more_info"]').value;
+
+        const addressList = summary.querySelectorAll('.form-section--column')[0].querySelector('ul');
+        addressList.innerHTML = `
+      <li>${address || 'Brak danych'}</li>
+      <li>${city || 'Brak danych'}</li>
+      <li>${postcode || 'Brak danych'}</li>
+      <li>${phone || 'Brak danych'}</li>
+    `;
+
+        const pickupList = summary.querySelectorAll('.form-section--column')[1].querySelector('ul');
+        pickupList.innerHTML = `
+      <li>${pickupDate || 'Brak danych'}</li>
+      <li>${pickupTime || 'Brak danych'}</li>
+      <li>${pickupComment || 'Brak uwag'}</li>
+    `;
+      }
     }
 
-  }
+
   const form = document.querySelector(".form--steps");
   if (form !== null) {
     new FormSteps(form);
