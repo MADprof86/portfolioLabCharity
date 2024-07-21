@@ -68,12 +68,15 @@ public class UserService {
     public User updateUser(User user) throws DataNotFoundInDatabaseException, EmailUsedException {
         User optionalUser = userRepository.findUserByEmail(user.getEmail());
         if(optionalUser == null){
-           User newUser =  saveNewUser(user);
+          return saveNewUser(user);
         }
         else if(user.getPassword() != null){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
         }
+        else {
+            user.setPassword(optionalUser.getPassword());
+        }
+        return userRepository.save(user);
     }
 
     private Set<Role> getRoles() throws DataNotFoundInDatabaseException {
