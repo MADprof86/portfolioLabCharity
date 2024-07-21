@@ -254,8 +254,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Show popup if there is a success or error message
-  const successMessage = document.getElementById('success');
-  const errorMessage = document.getElementById('error');
+  const successMessage = document.getElementById('popupSuccessMessage');
+  const errorMessage = document.getElementById('popupErrorMessage');
 
   if (successMessage) {
     showPopup('Success', successMessage.innerText);
@@ -267,4 +267,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 });
-
+// function showPopup(title, message) {
+//   const overlay = document.getElementById('popupOverlay');
+//   const popupTitle = document.getElementById('popupTitle');
+//   const popupMessage = document.getElementById('popupMessage');
+//   const popupButton = document.getElementById('popupButton');
+//
+//   popupTitle.innerText = title;
+//   popupMessage.innerText = message;
+//
+//   // Show the popup
+//   overlay.style.display = 'flex';
+//
+//   // Add event listener to the button to hide the popup when clicked
+//   popupButton.addEventListener('click', function() {
+//     overlay.style.display = 'none';
+//   });
+// }

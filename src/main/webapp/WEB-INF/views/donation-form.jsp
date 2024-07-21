@@ -12,12 +12,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
-
+    <meta name="success-message" content="${success != null ? success : ''}"/>
+    <meta name="error-message" content="${error != null ? error : ''}"/>
   </head>
   <body>
     <header class="header--form-page">
       <tags:header/>
-
+      <c:if test="${not empty success}">
+        <div class="alert alert-success">${success}</div>
+      </c:if>
+      <c:if test="${not empty error}">
+        <div class="alert alert-error">${error}</div>
+      </c:if>
       <div class="slogan container container--90">
         <div class="slogan--item">
           <h1>
@@ -263,30 +269,54 @@
     </div>
 
 
-
+    <script src="<c:url value="resources/js/app.js"/>"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         const popupOverlay = document.getElementById('popupOverlay');
         const popupButton = document.getElementById('popupButton');
-        const sucess = '<c:out value="${success}"/>';
-        const error = '<c:out value="${error}"/>';
+        const popupTitle = document.getElementById('popupTitle');
+        const popupMessage = document.getElementById('popupMessage');
 
-        if (sucess) {
-          document.getElementById('popupTitle').textContent = 'Success!';
-          document.getElementById('popupMessage').textContent = sucess;
+        const success = '${success}';
+        const error = '${error}';
+        const donation = ${donationSuccessfullyAdded ? '${donationSuccessfullyAdded}' : 'null'};
+
+        console.log('Success:', success);
+        console.log('Error:', error);
+        console.log('Donation:', donation);
+
+        if (success) {
+          popupTitle.textContent = 'Sukces!';
+          popupMessage.textContent = success;
           popupOverlay.style.display = 'flex';
         }
-        else if (error){
-          document.getElementById('popupTitle').textContent = 'Error!';
-          document.getElementById('popupMessage').textContent = error;
-          popupOverlay.style.display = 'flex';
-        }
+    <%--    else if (error) {--%>
+    <%--      popupTitle.textContent = 'Błąd!';--%>
+    <%--      popupMessage.textContent = error;--%>
+    <%--      popupOverlay.style.display = 'flex';--%>
+    <%--    }--%>
 
+    <%--    if (success && donation) {--%>
+    <%--      const summary = `--%>
+    <%--  <h3>Podsumowanie Twojej darowizny:</h3>--%>
+    <%--  <ul>--%>
+    <%--    <li><strong>Oddajesz:</strong> ${donation.categories}</li>--%>
+    <%--    <li><strong>Liczba 60l worków:</strong> ${donation.quantity}</li>--%>
+    <%--    <li><strong>Fundacja:</strong> ${donation.institution}</li>--%>
+    <%--    <li><strong>Adres odbioru:</strong> ${donation.street}, ${donation.city}, ${donation.zipCode}</li>--%>
+    <%--    <li><strong>Data odbioru:</strong> ${donation.pickUpDate}</li>--%>
+    <%--    <li><strong>Godzina odbioru:</strong> ${donation.pickUpTime}</li>--%>
+    <%--    <li><strong>Uwagi:</strong> ${donation.pickUpComment}</li>--%>
+    <%--  </ul>--%>
+    <%--`;--%>
+    <%--      document.getElementById('popupSummary').innerHTML = summary;--%>
+    <%--    }--%>
 
         popupButton.addEventListener('click', function() {
           popupOverlay.style.display = 'none';
         });
       });
+
     </script>
   </body>
 </html>

@@ -32,6 +32,7 @@ public class Donation {
     private String phone;
     private String street;
 
+
     private String city;
 
     private String zipCode;

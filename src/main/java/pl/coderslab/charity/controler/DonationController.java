@@ -59,7 +59,8 @@ public class DonationController {
                 return "redirect:/donation";
             }
             try{
-                donationService.save(donation);
+                Donation newDonation = donationService.save(donation);
+                redirectAttributes.addFlashAttribute("donationSuccessfullyAdded",newDonation);
                 redirectAttributes.addFlashAttribute("success", CONFIRMATION_MESSAGE);
                 return "redirect:/donation";
             }
