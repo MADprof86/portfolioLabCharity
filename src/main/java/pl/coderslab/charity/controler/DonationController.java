@@ -25,6 +25,8 @@ import java.util.List;
 @RequestMapping("/donation")
 public class DonationController {
 
+    private static final String CONFIRMATION_MESSAGE = "Darownizna przyjęta do realizacji";
+    private static final String ERROR_MESSAGE = "Darownizna nie przyjęta z powodu będu: ";
     @Autowired
     private InstitutionRepository institutionRepository;
     @Autowired
@@ -54,10 +56,12 @@ public class DonationController {
             }
             try{
                 donationService.save(donation);
+                model.addAttribute("success", CONFIRMATION_MESSAGE);
+                model.addAttribute("donation", new Donation());
             }
             catch (Exception e){
-                model.addAttribute("error", e.getMessage());
+                model.addAttribute("error", ERROR_MESSAGE + e.getMessage());
             }
-            return "index";
+            return "donation-form";
     }
 }

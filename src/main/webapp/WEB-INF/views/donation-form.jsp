@@ -12,6 +12,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
+    <meta name="success-message" content="${success != null ? success : ''}"/>
+    <meta name="error-message" content="${error != null ? error : ''}"/>
   </head>
   <body>
     <header class="header--form-page">
