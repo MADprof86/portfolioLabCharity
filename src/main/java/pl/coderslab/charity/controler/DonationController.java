@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.charity.model.Category;
 import pl.coderslab.charity.model.Donation;
 import pl.coderslab.charity.model.Institution;
@@ -43,25 +44,29 @@ public class DonationController {
         model.addAttribute("donation", new Donation());
         model.addAttribute("institutions",institutions);
         model.addAttribute("categories",categories);
+        System.out.println("Flash attributes: " + model.asMap());
         return "donation-form";
     }
     @PostMapping("/form")
     public String saveDonation(@ModelAttribute("donation") @Valid Donation donation,
-                               BindingResult result, Model model){
+                               BindingResult result, RedirectAttributes redirectAttributes, Model model){
 
         System.out.println(donation.toString());
 
             if(result.hasErrors()){
-                return "donation-form";
+
+                redirectAttributes.addFlashAttribute("error", ERROR_MESSAGE);
+                return "redirect:/donation";
             }
             try{
                 donationService.save(donation);
-                model.addAttribute("success", CONFIRMATION_MESSAGE);
-                model.addAttribute("donation", new Donation());
+                redirectAttributes.addFlashAttribute("success", CONFIRMATION_MESSAGE);
+                return "redirect:/donation";
             }
             catch (Exception e){
-                model.addAttribute("error", ERROR_MESSAGE + e.getMessage());
+                redirectAttributes.addFlashAttribute("error", ERROR_MESSAGE + e.getMessage());
+                return "redirect:/donation";
             }
-            return "donation-form";
+
     }
 }

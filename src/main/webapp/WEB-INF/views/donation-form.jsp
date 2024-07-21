@@ -12,8 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
-    <meta name="success-message" content="${success != null ? success : ''}"/>
-    <meta name="error-message" content="${error != null ? error : ''}"/>
+
   </head>
   <body>
     <header class="header--form-page">
@@ -251,8 +250,43 @@
       </div>
     </section>
 
+
     <tags:footer/>
 
     <script src="<c:url value="resources/js/app.js"/>"></script>
+    <div id="popupOverlay" class="popup-overlay">
+      <div class="popup-content">
+        <h2 id="popupTitle" class="popup-title"></h2>
+        <p id="popupMessage" class="popup-message"></p>
+        <button id="popupButton" class="popup-close-button">Close</button>
+      </div>
+    </div>
+
+
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const popupOverlay = document.getElementById('popupOverlay');
+        const popupButton = document.getElementById('popupButton');
+        const sucess = '<c:out value="${success}"/>';
+        const error = '<c:out value="${error}"/>';
+
+        if (sucess) {
+          document.getElementById('popupTitle').textContent = 'Success!';
+          document.getElementById('popupMessage').textContent = sucess;
+          popupOverlay.style.display = 'flex';
+        }
+        else if (error){
+          document.getElementById('popupTitle').textContent = 'Error!';
+          document.getElementById('popupMessage').textContent = error;
+          popupOverlay.style.display = 'flex';
+        }
+
+
+        popupButton.addEventListener('click', function() {
+          popupOverlay.style.display = 'none';
+        });
+      });
+    </script>
   </body>
 </html>
