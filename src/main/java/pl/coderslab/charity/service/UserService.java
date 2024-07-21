@@ -1,7 +1,6 @@
 package pl.coderslab.charity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.exceptions.DataNotFoundInDatabaseException;
@@ -25,58 +24,54 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public User getUserByEmail(String email) throws DataNotFoundInDatabaseException {
-        User optionalUser = userRepository.findUserByEmail(email);
-        if (optionalUser != null) {
-            return optionalUser;
-        } else {
-            throw new DataNotFoundInDatabaseException("No User with this email found");
+        Optional<User> optionalUser = userRepository.findUserByEmail(email);
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
         }
+        throw new DataNotFoundInDatabaseException("No User with this email found");
+
     }
     public User getUserById(Long id) throws DataNotFoundInDatabaseException{
-        User optionalUser = userRepository.findAllById(id);
-        if(optionalUser != null) {
-            return  optionalUser;
-        } else {
-            throw new DataNotFoundInDatabaseException("No user found");
+        Optional<User> optionalUser = userRepository.findById(id);
+        if(optionalUser.isPresent()) {
+            return  optionalUser.get();
         }
+        throw new DataNotFoundInDatabaseException("No user found");
+
     }
     public User saveNewUser(User user) throws EmailUsedException,DataNotFoundInDatabaseException{
-        User oprionaluser = userRepository.findUserByEmail(user.getEmail());
-        if(oprionaluser != null){
-            throw new EmailUsedException("User with this email exist");
+        Optional<User> optionalUser = userRepository.findUserByEmail(user.getEmail());
+        if(optionalUser.isPresent()){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            Set<Role> roles = getRoles();
+
+            user.setRoles(roles);
+            return userRepository.save(user);
         }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        Set<Role> roles = getRoles();
-
-        user.setRoles(roles);
-        return userRepository.save(user);
-
+        throw new EmailUsedException("User with this email exist");
 
     }
     public void deleteUser(Long id  ) throws DataNotFoundInDatabaseException {
-        User optionaUser = userRepository.findAllById(id);
-        if(optionaUser != null){
-            userRepository.delete(optionaUser);
+        Optional<User> optionalUser = userRepository.findById(id);
+        if(optionalUser.isPresent() ){
+            userRepository.delete(optionalUser.get());
         }
-        else {
-            throw new DataNotFoundInDatabaseException("User cannot be found ");
-        }
+        throw new DataNotFoundInDatabaseException("User cannot be found ");
     }
 
+
     public User updateUser(User user) throws DataNotFoundInDatabaseException, EmailUsedException {
-        User optionalUser = userRepository.findUserByEmail(user.getEmail());
-        if(optionalUser == null){
-          return saveNewUser(user);
-        }
-        else if(user.getPassword() != null){
+        Optional<User> optionalUser = userRepository.findUserByEmail(user.getEmail());
+        if(optionalUser.isPresent() && user.getPassword() != null){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         }
-        else {
-            user.setPassword(optionalUser.getPassword());
+        else if (optionalUser.isPresent()){
+            user.setPassword(optionalUser.get().getPassword());
         }
-        return userRepository.save(user);
+
+        throw new DataNotFoundInDatabaseException("No user found");
     }
 
     private Set<Role> getRoles() throws DataNotFoundInDatabaseException {

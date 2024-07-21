@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -19,7 +20,7 @@
 
     <section class="login-page">
       <h2>Załóż konto</h2>
-      <form>
+      <form:form method="post" action="register" modelAttribute="user">
         <div class="form-group">
           <input type="email" name="email" placeholder="Email" />
         </div>
@@ -34,7 +35,7 @@
           <a href="login.html" class="btn btn--without-border">Zaloguj się</a>
           <button class="btn" type="submit">Załóż konto</button>
         </div>
-      </form>
+      </form:form>
     </section>
 
     <tags:footer/>

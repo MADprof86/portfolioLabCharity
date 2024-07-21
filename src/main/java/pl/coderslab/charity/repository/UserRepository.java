@@ -6,6 +6,6 @@ import pl.coderslab.charity.model.User;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User,Long> {
-    User findUserByEmail(String email);
-    User findAllById(Long id);
+    Optional<User> findUserByEmail(String email);
+
 }

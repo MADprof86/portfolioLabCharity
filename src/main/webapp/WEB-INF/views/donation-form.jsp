@@ -12,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
+    /* For testing*/
     <meta name="success-message" content="${success != null ? success : ''}"/>
     <meta name="error-message" content="${error != null ? error : ''}"/>
   </head>
@@ -70,7 +71,7 @@
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <form:form action="/donation/form" method="post" modelAttribute="donation">
+        <form:form action="/donation/form" method="post">
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
@@ -165,7 +166,7 @@
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Numer telefonu <input type="phone" name="phone" />
+                    Numer telefonu <input type="number" name="phone" />
                   </label>
                 </div>
               </div>
@@ -253,6 +254,6 @@
 
     <tags:footer/>
 
-    <script src="<c:url value="resources/js/app.js"/>"></script>
+    <script src="<c:url value="/resources/js/app.js"/>"></script>
   </body>
 </html>
