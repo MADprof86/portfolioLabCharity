@@ -110,11 +110,16 @@ document.addEventListener("DOMContentLoaded", function() {
       this.init();
     }
 
+    /**
+     * Init all methods
+     */
     init() {
       this.events();
       this.updateForm();
     }
-
+      /**
+       * All events that are happening in form
+       */
     events() {
       this.$next.forEach(btn => {
         btn.addEventListener("click", e => {
@@ -123,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function() {
           this.updateForm();
         });
       });
-
+          // Previous step
       this.$prev.forEach(btn => {
         btn.addEventListener("click", e => {
           e.preventDefault();
@@ -135,8 +140,14 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
     }
 
+    /**
+     * Update form front-end
+     * Show next or previous section etc.
+     */
     updateForm() {
       this.$step.innerText = this.currentStep;
+
+      // TODO: Validation
 
       this.slides.forEach(slide => {
         slide.classList.remove("active");
@@ -149,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
+      // TODO: get data from inputs and show them in summary
       if (this.currentStep === 5) {
         this.updateSummary();
       }
@@ -157,23 +169,19 @@ document.addEventListener("DOMContentLoaded", function() {
     updateSummary() {
       const summary = this.$form.querySelector('.summary');
 
-      // Step 1: Categories
+      // Categories
       const selectedCategories = Array.from(this.$form.querySelectorAll('input[name="categories"]:checked'))
           .map(checkbox => checkbox.nextElementSibling.nextElementSibling.textContent.trim())
           .join(', ');
 
-      summary.querySelector('h4').textContent = `Oddajesz: ${selectedCategories || 'Brak danych'}`;
+      summary.querySelector('.summary--text').textContent = `${selectedCategories || 'Brak danych'} worki ubrań w dobrym stanie`;
 
-      // Step 2: Number of Bags
-      const bags = this.$form.querySelector('input[name="quantity"]').value;
-      summary.querySelector('.summary--text').textContent = `${bags} worki ubrań w dobrym stanie`;
-
-      // Step 3: Organization
+      // Institution
       const selectedInstitution = this.$form.querySelector('input[name="institution"]:checked');
       const institutionName = selectedInstitution ? selectedInstitution.nextElementSibling.nextElementSibling.querySelector('.title').textContent : 'Brak danych';
       summary.querySelectorAll('.summary ul li')[1].textContent = `Dla fundacji "${institutionName}"`;
 
-      // Step 4: Address and Pickup Details
+      // Address and Pickup Details
       const address = this.$form.querySelector('input[name="street"]').value;
       const city = this.$form.querySelector('input[name="city"]').value;
       const postcode = this.$form.querySelector('input[name="zipCode"]').value;
@@ -198,6 +206,9 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     }
 
+    /**
+     * Handle form submission
+     */
     submit(e) {
       e.preventDefault(); // Prevent the default form submission
 
@@ -208,6 +219,9 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$form.querySelector("form").submit();
     }
 
+    /**
+     * Reset the form and go back to the first step
+     */
     resetForm() {
       this.currentStep = 1; // Reset to the first step
       this.updateForm(); // Update the form to show the first step
