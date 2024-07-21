@@ -12,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
+    /* For testing*/
     <meta name="success-message" content="${success != null ? success : ''}"/>
     <meta name="error-message" content="${error != null ? error : ''}"/>
     <meta name="donation-message" content="${donationSuccessfullyAdded != null ? donationSuccessfullyAdded : ""} "/>
@@ -260,10 +261,9 @@
       </div>
     </section>
 
-
     <tags:footer/>
 
-    <script src="<c:url value="resources/js/app.js"/>"></script>
+    <script src="<c:url value="/resources/js/app.js"/>"></script>
     <div id="popupOverlay" class="popup-overlay">
       <div class="popup-content">
         <h2 id="popupTitle" class="popup-title"></h2>
