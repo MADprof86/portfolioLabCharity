@@ -173,23 +173,19 @@ document.addEventListener("DOMContentLoaded", function() {
     updateSummary() {
       const summary = this.$form.querySelector('.summary');
 
-      // Step 1: Categories
+      // Categories
       const selectedCategories = Array.from(this.$form.querySelectorAll('input[name="categories"]:checked'))
           .map(checkbox => checkbox.nextElementSibling.nextElementSibling.textContent.trim())
           .join(', ');
 
-      summary.querySelector('h4').textContent = `Oddajesz: ${selectedCategories || 'Brak danych'}`;
+      summary.querySelector('.summary--text').textContent = `${selectedCategories || 'Brak danych'} worki ubrań w dobrym stanie`;
 
-      // Step 2: Number of Bags
-      const bags = this.$form.querySelector('input[name="quantity"]').value;
-      summary.querySelector('.summary--text').textContent = `${bags} worki ubrań w dobrym stanie`;
-
-      // Step 3: Organization
+      // Institution
       const selectedInstitution = this.$form.querySelector('input[name="institution"]:checked');
       const institutionName = selectedInstitution ? selectedInstitution.nextElementSibling.nextElementSibling.querySelector('.title').textContent : 'Brak danych';
       summary.querySelectorAll('.summary ul li')[1].textContent = `Dla fundacji "${institutionName}"`;
 
-      // Step 4: Address and Pickup Details
+      // Address and Pickup Details
       const address = this.$form.querySelector('input[name="street"]').value;
       const city = this.$form.querySelector('input[name="city"]').value;
       const postcode = this.$form.querySelector('input[name="zipCode"]').value;
@@ -200,18 +196,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
       const addressList = summary.querySelectorAll('.form-section--column')[0].querySelector('ul');
       addressList.innerHTML = `
-        <li>${address || 'Brak danych'}</li>
-        <li>${city || 'Brak danych'}</li>
-        <li>${postcode || 'Brak danych'}</li>
-        <li>${phone || 'Brak danych'}</li>
-      `;
+    <li>${address || 'Brak danych'}</li>
+    <li>${city || 'Brak danych'}</li>
+    <li>${postcode || 'Brak danych'}</li>
+    <li>${phone || 'Brak danych'}</li>
+  `;
 
       const pickupList = summary.querySelectorAll('.form-section--column')[1].querySelector('ul');
       pickupList.innerHTML = `
-        <li>${pickupDate || 'Brak danych'}</li>
-        <li>${pickupTime || 'Brak danych'}</li>
-        <li>${pickupComment || 'Brak uwag'}</li>
-      `;
+    <li>${pickupDate || 'Brak danych'}</li>
+    <li>${pickupTime || 'Brak danych'}</li>
+    <li>${pickupComment || 'Brak uwag'}</li>
+  `;
     }
 
     /**
