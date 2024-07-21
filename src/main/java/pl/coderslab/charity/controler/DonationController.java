@@ -26,8 +26,8 @@ import java.util.List;
 @RequestMapping("/donation")
 public class DonationController {
 
-    private static final String CONFIRMATION_MESSAGE = "Darownizna przyjęta do realizacji";
-    private static final String ERROR_MESSAGE = "Darownizna nie przyjęta z powodu będu: ";
+    private final String CONFIRMATION_MESSAGE = "Darownizna przyjęta do realizacji";
+    private final String ERROR_MESSAGE = "Darownizna nie przyjęta z powodu będu: ";
     @Autowired
     private InstitutionRepository institutionRepository;
     @Autowired
@@ -47,9 +47,9 @@ public class DonationController {
         System.out.println("Flash attributes: " + model.asMap());
         return "donation-form";
     }
-    @PostMapping("/form")
+    @PostMapping("")
     public String saveDonation(@ModelAttribute("donation") @Valid Donation donation,
-                               BindingResult result, RedirectAttributes redirectAttributes, Model model){
+                               BindingResult result, RedirectAttributes redirectAttributes){
 
         System.out.println(donation.toString());
 

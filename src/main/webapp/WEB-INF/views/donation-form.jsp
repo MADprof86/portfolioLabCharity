@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
     <meta name="success-message" content="${success != null ? success : ''}"/>
     <meta name="error-message" content="${error != null ? error : ''}"/>
+    <meta name="donation-message" content="${donationSuccessfullyAdded != null ? donationSuccessfullyAdded : ""} "/>
   </head>
   <body>
     <header class="header--form-page">
@@ -23,6 +24,9 @@
       </c:if>
       <c:if test="${not empty error}">
         <div class="alert alert-error">${error}</div>
+      </c:if>
+      <c:if test="${not empty donationSucessfullyAdded}">
+        <div class="alert alert-error">${donationSucessfullyAdded.toString()}</div>
       </c:if>
       <div class="slogan container container--90">
         <div class="slogan--item">
@@ -75,7 +79,7 @@
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <form:form action="/donation/form" method="post" modelAttribute="donation">
+        <form:form action="/donation" method="post" modelAttribute="donation">
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
@@ -290,11 +294,11 @@
           popupMessage.textContent = success;
           popupOverlay.style.display = 'flex';
         }
-    <%--    else if (error) {--%>
-    <%--      popupTitle.textContent = 'Błąd!';--%>
-    <%--      popupMessage.textContent = error;--%>
-    <%--      popupOverlay.style.display = 'flex';--%>
-    <%--    }--%>
+        else if (error) {
+          popupTitle.textContent = 'Błąd!';
+          popupMessage.textContent = error;
+          popupOverlay.style.display = 'flex';
+        }
 
     <%--    if (success && donation) {--%>
     <%--      const summary = `--%>
