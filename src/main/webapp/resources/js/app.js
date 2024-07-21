@@ -110,19 +110,12 @@ document.addEventListener("DOMContentLoaded", function() {
       this.init();
     }
 
-    /**
-     * Init all methods
-     */
     init() {
       this.events();
       this.updateForm();
     }
 
-    /**
-     * All events that are happening in form
-     */
     events() {
-      // Next step
       this.$next.forEach(btn => {
         btn.addEventListener("click", e => {
           e.preventDefault();
@@ -131,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       });
 
-      // Previous step
       this.$prev.forEach(btn => {
         btn.addEventListener("click", e => {
           e.preventDefault();
@@ -140,18 +132,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       });
 
-      // Form submit
       this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
     }
 
-    /**
-     * Update form front-end
-     * Show next or previous section etc.
-     */
     updateForm() {
       this.$step.innerText = this.currentStep;
-
-      // TODO: Validation
 
       this.slides.forEach(slide => {
         slide.classList.remove("active");
@@ -164,7 +149,6 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
-      // TODO: get data from inputs and show them in summary
       if (this.currentStep === 5) {
         this.updateSummary();
       }
@@ -200,39 +184,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
       const addressList = summary.querySelectorAll('.form-section--column')[0].querySelector('ul');
       addressList.innerHTML = `
-        <li>${address || 'Brak danych'}</li>
-        <li>${city || 'Brak danych'}</li>
-        <li>${postcode || 'Brak danych'}</li>
-        <li>${phone || 'Brak danych'}</li>
-      `;
+      <li>${address || 'Brak danych'}</li>
+      <li>${city || 'Brak danych'}</li>
+      <li>${postcode || 'Brak danych'}</li>
+      <li>${phone || 'Brak danych'}</li>
+    `;
 
       const pickupList = summary.querySelectorAll('.form-section--column')[1].querySelector('ul');
       pickupList.innerHTML = `
-        <li>${pickupDate || 'Brak danych'}</li>
-        <li>${pickupTime || 'Brak danych'}</li>
-        <li>${pickupComment || 'Brak uwag'}</li>
-      `;
+      <li>${pickupDate || 'Brak danych'}</li>
+      <li>${pickupTime || 'Brak danych'}</li>
+      <li>${pickupComment || 'Brak uwag'}</li>
+    `;
     }
 
-    /**
-     * Handle form submission
-     */
     submit(e) {
-      e.preventDefault();
-      // Custom submission logic if necessary
-      // For now, just reset the form after submission
-      this.resetForm();
+      e.preventDefault(); // Prevent the default form submission
+
+      // Perform any validation or custom logic here
+      // ...
+
+      // After validation/custom logic, submit the form
+      this.$form.querySelector("form").submit();
     }
 
-    /**
-     * Reset the form and go back to the first step
-     */
     resetForm() {
-      this.currentStep = 1;
-      this.updateForm();
-      this.$form.querySelector("form").reset();
+      this.currentStep = 1; // Reset to the first step
+      this.updateForm(); // Update the form to show the first step
+      this.$form.querySelector("form").reset(); // Reset form fields
     }
   }
+
 
   const form = document.querySelector(".form--steps");
   if (form !== null) {
