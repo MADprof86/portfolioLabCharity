@@ -23,9 +23,11 @@
       <form:form method="post" action="register" modelAttribute="user">
         <div class="form-group">
           <input type="email" name="email" placeholder="Email" />
+          <form:errors path="email" class="error"/>
         </div>
         <div class="form-group">
           <input type="password" name="password" placeholder="Hasło" />
+          <form:errors path="password" class="error"/>
         </div>
         <div class="form-group">
           <input type="password" name="password2" placeholder="Powtórz hasło" />

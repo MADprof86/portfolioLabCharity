@@ -5,13 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.charity.exceptions.DataNotFoundInDatabaseException;
 import pl.coderslab.charity.exceptions.EmailUsedException;
+import pl.coderslab.charity.exceptions.PasswordMismatchException;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.service.UserService;
 
@@ -29,16 +27,28 @@ public class RegistrationController {
         return "register";
     }
     @PostMapping()
-    public String registerNewUser(@ModelAttribute("user") @Valid User user, BindingResult result, RedirectAttributes redirectAttributes) throws DataNotFoundInDatabaseException {
+    public String registerNewUser(@ModelAttribute("user") @Valid User user,
+                                  BindingResult result,
+                                  RedirectAttributes redirectAttributes,
+                                  @RequestParam("password2") String password2) throws DataNotFoundInDatabaseException {
+        if(result.hasErrors()){
+            return "register";
+        }
         try{
-        userService.saveNewUser(user);
+        userService.saveNewUser(user,password2);
         }
         catch (EmailUsedException e){
-            redirectAttributes.addFlashAttribute("error",e.getMessage());
-            return "redirect:/register";
+
+            result.rejectValue("email", "error.user",e.getMessage());
+            return "register";
+        }
+        catch (PasswordMismatchException e){
+
+            result.rejectValue("password", "error.user",e.getMessage());
+            return "register";
         }
 
-        return "/register";
+        return "register";
     }
 
 }
