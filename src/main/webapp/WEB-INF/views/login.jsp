@@ -19,27 +19,24 @@
   <tags:header/>
 
     <section class="login-page">
-      <h2>Załóż konto</h2>
-      <form:form method="post" action="register" modelAttribute="user">
+      <h2>Zaloguj się</h2>
+      <form:form method="post" action="login" modelAttribute="user">
         <div class="form-group">
           <input type="email" name="email" placeholder="Email" />
           <form:errors path="email" class="error"/>
         </div>
         <div class="form-group">
           <input type="password" name="password" placeholder="Hasło" />
-          <form:errors path="password" class="error"/>
-        </div>
-        <div class="form-group">
-          <input type="password" name="password2" placeholder="Powtórz hasło" />
+          <form:errors path="password" class="password"/>
+          <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
         </div>
 
         <div class="form-group form-group--buttons">
-          <a href="/login" class="btn btn--without-border">Zaloguj się</a>
-          <button class="btn" type="submit">Załóż konto</button>
+          <a href="register" class="btn btn--without-border">Załóż konto</a>
+          <button class="btn" type="submit">Zaloguj się</button> 
         </div>
       </form:form>
     </section>
-
     <tags:footer/>
 
     <script src="<c:url value="/resources/js/app.js"/>"></script>

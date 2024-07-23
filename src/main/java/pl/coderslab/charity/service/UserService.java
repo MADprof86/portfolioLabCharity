@@ -47,7 +47,6 @@ public class UserService {
 
         Optional<User> optionalUser = userRepository.findUserByEmail(user.getEmail());
         if(optionalUser.isPresent()){
-
             throw new EmailUsedException("User with this email exist");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -66,7 +65,7 @@ public class UserService {
     }
 
 
-    public User updateUser(User user) throws DataNotFoundInDatabaseException, EmailUsedException {
+    public User updateUser(User user) throws DataNotFoundInDatabaseException{
         Optional<User> optionalUser = userRepository.findUserByEmail(user.getEmail());
         if(optionalUser.isPresent() && user.getPassword() != null){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -77,6 +76,15 @@ public class UserService {
         }
 
         throw new DataNotFoundInDatabaseException("No user found");
+    }
+    public void validatePassword(User user) throws DataNotFoundInDatabaseException, PasswordMismatchException {
+        Optional<User> optionalUser = userRepository.findUserByEmail(user.getEmail());
+        if(!optionalUser.isPresent()){
+            throw new DataNotFoundInDatabaseException("User with this email does not exist");
+        }
+        if(!passwordEncoder.matches(user.getPassword(), optionalUser.get().getPassword())){
+            throw new PasswordMismatchException("Wrong password");
+        }
     }
 
     private Set<Role> getRoles() throws DataNotFoundInDatabaseException {

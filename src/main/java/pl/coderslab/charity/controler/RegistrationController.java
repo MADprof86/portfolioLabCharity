@@ -48,7 +48,7 @@ public class RegistrationController {
             return "register";
         }
 
-        return "register";
+        return "login";
     }
 
 }
