@@ -16,31 +16,31 @@
 </head>
 <body>
 <header class="header--main-page" id="mainPage">
-  <tags:header/>
+
   <section class="login-page">
     <h2>Zaloguj się</h2>
-    <form:form method="post" action="/login" modelAttribute="user">
+    <form method="post" action="/login" >
       <div class="form-group">
-        <form:input path="email" placeholder="Email" />
-        <form:errors path="email" class="error"/>
+        <input type="text" name="username" placeholder="Email" />
+
       </div>
       <div class="form-group">
-        <form:password path="password" placeholder="Password" />
-        <form:errors path="password" class="error"/>
+        <input  type="text" name="password" placeholder="Password" />
+
         <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
       </div>
       <div class="form-group form-group--buttons">
         <a href="/register" class="btn btn--without-border">Załóż konto</a>
         <button class="btn" type="submit">Zaloguj się</button>
       </div>
-    </form:form>
+    </form>
     <div>
       <c:if test="${param.error}">
         <p class="error">Invalid email or password.</p>
       </c:if>
     </div>
   </section>
-  <tags:footer/>
+
   <script src="<c:url value='/resources/js/app.js'/>"></script>
 </header>
 </body>

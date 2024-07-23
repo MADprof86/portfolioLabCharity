@@ -31,33 +31,6 @@ public class LoginController {
         model.addAttribute("user", new User());
         return "login";
     }
-    @PostMapping()
-    public String loginUser(@Valid User user, BindingResult result,
-                            RedirectAttributes redirect
-                            ){
-        if(result.hasErrors()){
-
-            return "login";
-        }
 
 
-        try {
-              userService.validatePassword(user);
-        }
-        catch (DataNotFoundInDatabaseException e) {
-           result.rejectValue("email", "error.user", e.getMessage() );
-//           result.rejectValue("username", "error.user", e.getMessage() );
-            return "login";
-        } catch (PasswordMismatchException e) {
-            result.rejectValue("password","error.user",e.getMessage());
-            return "login";
-        }
-//        catch (MethodArgumentNotValidException e){
-//            result.rejectValue("email","error.user", e.getMessage());
-//            return "login";
-//        }
-
-
-        return "redirect:/";
-    }
 }
