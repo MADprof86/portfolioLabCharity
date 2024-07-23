@@ -15,9 +15,9 @@
 
         <ul>
             <li><a href=".." class="btn btn--without-border active">Start</a></li>
-            <li><a href="#stats" class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a href="#about-us" class="btn btn--without-border">O nas</a></li>
-            <li><a href="#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
+            <li><a href="/index#stats" class="btn btn--without-border">O co chodzi?</a></li>
+            <li><a href="/index#about-us" class="btn btn--without-border">O nas</a></li>
+            <li><a href="/index#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
             <li><a href="donation" class="btn btn--without-border">Przekaż dary</a></li>
             <li><a href="#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
