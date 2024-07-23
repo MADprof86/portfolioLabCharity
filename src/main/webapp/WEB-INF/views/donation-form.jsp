@@ -22,6 +22,7 @@
       <tags:header/>
       <c:if test="${not empty success}">
         <div class="alert alert-success">${success}</div>
+        <div class="alert alert-success">${donationSucessfullyAdded.toString()}</div>
       </c:if>
       <c:if test="${not empty error}">
         <div class="alert alert-error">${error}</div>

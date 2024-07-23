@@ -44,7 +44,7 @@ public class DonationController {
         model.addAttribute("donation", new Donation());
         model.addAttribute("institutions",institutions);
         model.addAttribute("categories",categories);
-        System.out.println("Flash attributes: " + model.asMap());
+        System.out.println("Flash attributes: ");
         return "donation-form";
     }
     @PostMapping("")
@@ -70,4 +70,7 @@ public class DonationController {
             }
 
     }
+
+    //TODO ZRobić PostMaping na kolejnym adresie z listą atrybutów i flashem tylko by je wyświetlić w innym formularzu.
+    //TODO spróbować zmienić adres dla Akcji PostMaping()
 }

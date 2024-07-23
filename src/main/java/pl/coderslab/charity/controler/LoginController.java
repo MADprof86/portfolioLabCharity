@@ -32,9 +32,9 @@ public class LoginController {
         return "login";
     }
     @PostMapping()
-    public String loginUser(@ModelAttribute("user") @Valid User user,
-                            RedirectAttributes redirect,
-                            BindingResult result){
+    public String loginUser(@Valid User user, BindingResult result,
+                            RedirectAttributes redirect
+                            ){
         if(result.hasErrors()){
 
             return "login";
