@@ -105,7 +105,7 @@ public class UserService {
 
     private Set<Role> getRoles() throws DataNotFoundInDatabaseException {
         Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName("USER");
+        Role userRole = roleRepository.findByName("ROLE_USER");
         if(userRole == null){
             throw new DataNotFoundInDatabaseException("User ROLE not found");
         }
