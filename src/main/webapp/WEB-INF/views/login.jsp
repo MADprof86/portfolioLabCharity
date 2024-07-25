@@ -16,7 +16,7 @@
 </head>
 <body>
 <header class="header--main-page" id="mainPage">
-
+  <tags:header/>
   <section class="login-page">
     <h2>Zaloguj się</h2>
     <form method="post" action="/login" >
@@ -41,7 +41,9 @@
     </div>
   </section>
 
+
   <script src="<c:url value='/resources/js/app.js'/>"></script>
-</header>
+
 </body>
+<tags:footer/>
 </html>

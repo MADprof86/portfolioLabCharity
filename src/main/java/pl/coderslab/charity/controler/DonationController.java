@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.Banner;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.charity.model.Category;
 import pl.coderslab.charity.model.Donation;
 import pl.coderslab.charity.model.Institution;
+import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
@@ -49,7 +51,9 @@ public class DonationController {
     }
     @PostMapping("")
     public String saveDonation(@ModelAttribute("donation") @Valid Donation donation,
-                               BindingResult result, RedirectAttributes redirectAttributes){
+                               BindingResult result,
+                               RedirectAttributes redirectAttributes,
+                               @AuthenticationPrincipal User user){
 
         System.out.println(donation.toString());
 
@@ -57,6 +61,9 @@ public class DonationController {
 
                 redirectAttributes.addFlashAttribute("error", ERROR_MESSAGE);
                 return "redirect:/donation";
+            }
+            if(user!=null){
+                donation.setUser(user);
             }
             try{
                 Donation newDonation = donationService.save(donation);

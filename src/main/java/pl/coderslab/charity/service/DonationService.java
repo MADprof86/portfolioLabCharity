@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.model.Donation;
 import pl.coderslab.charity.model.Institution;
+import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.repository.DonationRepository;
 
 import java.util.List;
@@ -37,5 +38,12 @@ public class DonationService {
             donationRepository.delete(donation);
         }
         else return;
+    }
+
+    public int countByUser(User user) {
+        return donationRepository.countByUser(user);
+
+
+
     }
 }

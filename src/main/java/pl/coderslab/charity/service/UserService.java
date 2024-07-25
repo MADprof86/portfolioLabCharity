@@ -65,17 +65,33 @@ public class UserService {
     }
 
 
-    public User updateUser(User user) throws DataNotFoundInDatabaseException{
-        Optional<User> optionalUser = userRepository.findUserByEmail(user.getEmail());
+    public User updateUser(User user, String password2) throws PasswordMismatchException,
+            EmailUsedException,
+            DataNotFoundInDatabaseException {
+        if(user.getPassword() !=null && !user.getPassword().equals(password2)){
+            throw new PasswordMismatchException("Passwords must match");
+        }
+
+        Optional<User> optionalUser = userRepository.findById(user.getId());
+        if(!optionalUser.isPresent()){
+            throw new DataNotFoundInDatabaseException("No user with email found");
+        }
+
+        if(userRepository.findUserByEmail(user.getEmail()).isPresent()){
+            throw new EmailUsedException("An account with this email exists");
+        }
+
         if(optionalUser.isPresent() && user.getPassword() != null){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         }
-        else if (optionalUser.isPresent()){
+        else {
             user.setPassword(optionalUser.get().getPassword());
         }
 
-        throw new DataNotFoundInDatabaseException("No user found");
+
+        return userRepository.save(user);
+
+
     }
     public void validatePassword(User user) throws DataNotFoundInDatabaseException, PasswordMismatchException {
         Optional<User> optionalUser = userRepository.findUserByEmail(user.getEmail());

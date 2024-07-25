@@ -1008,6 +1008,58 @@ header .slogan--steps ul {
   display: flex;
   margin-top: 60px;
 }
+/* Profile Page */
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 15px;
+  margin: 50px 0;
+}
+
+.profile-page h2 {
+  font-size: 3.5rem;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.profile-page .profile-info {
+  max-width: 580px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.profile-page .profile-info .form-group {
+  margin-bottom: 20px;
+}
+
+.profile-page .profile-info .form-group label {
+  font-size: 1.6rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.profile-page .profile-info .form-group .form-control {
+  font-size: 1.8rem;
+  border: 1px solid #3c3c3c;
+  background: transparent;
+  padding: 4px 14px;
+  max-width: 200px;
+  width: 100%;
+  resize: none;
+}
+
+.profile-page .profile-info .form-group .readonly {
+  background: #f1f1f1;
+  border: none;
+}
+
+.profile-page .profile-info .form-group .readonly:hover,
+.profile-page .profile-info .form-group .readonly:focus {
+  border: none;
+  outline: none;
+}
 
 /* line 99, scss/modules/_header.scss */
 header .slogan--steps ul li {

@@ -21,6 +21,8 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
+
+
     @GetMapping()
     public String getRegistrationForm(Model model){
         model.addAttribute("user", new User());
@@ -29,7 +31,6 @@ public class RegistrationController {
     @PostMapping()
     public String registerNewUser(@ModelAttribute("user") @Valid User user,
                                   BindingResult result,
-                                  RedirectAttributes redirectAttributes,
                                   @RequestParam("password2") String password2) throws DataNotFoundInDatabaseException {
         if(result.hasErrors()){
             return "register";

@@ -28,7 +28,8 @@ public class Donation {
     @ManyToOne
     @JoinColumn
     private  Institution institution;
-
+    @ManyToOne
+    private User user;
     private String phone;
     private String street;
 
@@ -39,5 +40,6 @@ public class Donation {
     private LocalDate pickUpDate;
     private LocalTime pickUpTime;
     private String pickUpComment;
+
 
 }
