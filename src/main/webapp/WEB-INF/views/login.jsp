@@ -25,7 +25,7 @@
 
       </div>
       <div class="form-group">
-        <input  type="text" name="password" placeholder="Password" />
+        <input  type="password" name="password" placeholder="Password" />
 
         <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
       </div>
