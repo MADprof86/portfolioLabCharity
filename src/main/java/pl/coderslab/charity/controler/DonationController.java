@@ -8,10 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.charity.model.Category;
 import pl.coderslab.charity.model.Donation;
@@ -75,6 +72,13 @@ public class DonationController {
                 redirectAttributes.addFlashAttribute("error", ERROR_MESSAGE + e.getMessage());
                 return "redirect:/donation";
             }
+
+    }
+    @GetMapping("/details/{donationId}")
+    public String getDonationDetailsForm(Model model,@PathVariable Long donationId){
+        Donation donation = donationService.findById(donationId);
+        model.addAttribute("donation",donation);
+        return "donation-details";
 
     }
 

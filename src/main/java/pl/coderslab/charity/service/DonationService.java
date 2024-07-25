@@ -42,8 +42,9 @@ public class DonationService {
 
     public int countByUser(User user) {
         return donationRepository.countByUser(user);
+   }
 
-
-
+    public List<Donation> findAllByUser(User user) {
+        return  donationRepository.findAllByUser(user);
     }
 }

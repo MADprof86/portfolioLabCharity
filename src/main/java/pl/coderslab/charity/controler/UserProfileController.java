@@ -11,9 +11,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.charity.exceptions.DataNotFoundInDatabaseException;
 import pl.coderslab.charity.exceptions.EmailUsedException;
 import pl.coderslab.charity.exceptions.PasswordMismatchException;
+import pl.coderslab.charity.model.Donation;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.UserService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/profile")
@@ -25,9 +28,12 @@ public class UserProfileController {
 
     @GetMapping
     public String showProfile(@AuthenticationPrincipal User user, Model model) {
-        int donations = donationService.countByUser(user);
+
+        List<Donation> donations = donationService.findAllByUser(user);
+        int donationsCount = donationService.countByUser(user);
         model.addAttribute("user", user);
-        model.addAttribute("donations", donations);
+        model.addAttribute("donationsCount", donationsCount);
+        model.addAttribute("donations",donations);
         return "profile";
     }
 

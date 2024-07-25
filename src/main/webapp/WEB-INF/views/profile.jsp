@@ -27,14 +27,25 @@
             <div class="form-group">
                 <label>Role:</label>
                 <span class="form-control readonly">
-                    <c:forEach var="role" items="${user.roles}">
-                        ${role.name}
-                    </c:forEach>
-                </span>
+                <c:forEach var="role" items="${user.roles}">
+                    ${role.name}
+                </c:forEach>
+            </span>
             </div>
             <div class="form-group">
                 <label>Donations Count:</label>
-                <span class="form-control readonly">${donations}</span>
+                <span class="form-control readonly">${donationsCount}</span>
+            </div>
+            <div class="block-list">
+                <h3>Twoje przekazane dary</h3>
+                <c:forEach var="donation" items="${donations}">
+                    <div class="donation-item">
+                        <p><strong>Fundacja:</strong> ${donation.institution.name}</p>
+                        <p><strong>Data wysłania:</strong> ${donation.pickUpDate}</p>
+                        <p><strong>Miasto:</strong> ${donation.city}</p>
+                        <a href="donation/details/${donation.id}" class="btn btn--small btn--highlighted">Szczegóły</a>
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </section>
