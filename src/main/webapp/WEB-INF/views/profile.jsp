@@ -13,6 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Profil Użytkownika</title>
     <link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header class="header--main-page" id="mainPage">
@@ -33,19 +34,26 @@
             </span>
             </div>
             <div class="form-group">
-                <label>Donations Count:</label>
+                <label>Ilość przekazanych darów:</label>
                 <span class="form-control readonly">${donationsCount}</span>
             </div>
             <div class="block-list">
                 <h3>Twoje przekazane dary</h3>
-                <c:forEach var="donation" items="${donations}">
-                    <div class="donation-item">
-                        <p><strong>Fundacja:</strong> ${donation.institution.name}</p>
-                        <p><strong>Data wysłania:</strong> ${donation.pickUpDate}</p>
-                        <p><strong>Miasto:</strong> ${donation.city}</p>
-                        <a href="donation/details/${donation.id}" class="btn btn--small btn--highlighted">Szczegóły</a>
-                    </div>
-                </c:forEach>
+                <div class="sort-options">
+                    <label>Sort by:</label>
+                    <button class="btn btn--small btn--without-border" data-sort="date">Date</button>
+                    <button class="btn btn--small btn--without-border" data-sort="city">City</button>
+                </div>
+                <div id="donations-list">
+                    <c:forEach var="donation" items="${donations}">
+                        <div class="donation-item" data-date="${donation.pickUpDate}" data-city="${donation.city}">
+                            <p><strong>Fundacja:</strong> ${donation.institution.name}</p>
+                            <p><strong>Data wysłania:</strong> ${donation.pickUpDate}</p>
+                            <p><strong>Miasto:</strong> ${donation.city}</p>
+                            <a href="donation/details/${donation.id}" class="btn btn--small btn--highlighted">Szczegóły</a>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
         </div>
     </section>

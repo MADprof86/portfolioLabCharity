@@ -27,7 +27,8 @@ public class UserProfileController {
     private DonationService donationService;
 
     @GetMapping
-    public String showProfile(@AuthenticationPrincipal User user, Model model) {
+    public String showProfile(@AuthenticationPrincipal User user,
+                              Model model) {
 
         List<Donation> donations = donationService.findAllByUser(user);
         int donationsCount = donationService.countByUser(user);

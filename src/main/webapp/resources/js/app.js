@@ -267,6 +267,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 });
+$(document).ready(function() {
+  function sortDonations(criteria) {
+    const donationsList = $('#donations-list');
+    const donations = donationsList.children('.donation-item').get();
+
+    donations.sort(function(a, b) {
+      const valA = $(a).data(criteria);
+      const valB = $(b).data(criteria);
+      if (criteria === 'date') {
+        return new Date(valA) - new Date(valB);
+      } else {
+        return valA.localeCompare(valB);
+      }
+    });
+
+    $.each(donations, function(index, item) {
+      donationsList.append(item);
+    });
+  }
+
+  $('.sort-options button').on('click', function() {
+    const criteria = $(this).attr('data-sort');
+    sortDonations(criteria);
+  });
+});
+
+
 // function showPopup(title, message) {
 //   const overlay = document.getElementById('popupOverlay');
 //   const popupTitle = document.getElementById('popupTitle');
