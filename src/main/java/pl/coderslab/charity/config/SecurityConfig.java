@@ -19,12 +19,24 @@ public class SecurityConfig {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/profile").authenticated()
+                        .requestMatchers("/profile")
+                        .hasRole("USER")
+                        .requestMatchers("/index-admin")
+                        .hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .permitAll().defaultSuccessUrl("/")
+                        .permitAll()
+                        .successHandler((request, response, authentication) -> {
+                            if (authentication.getAuthorities().stream()
+                                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+                                response.sendRedirect("/index-admin");
+                            } else {
+                                response.sendRedirect("/");
+                            }
+                        })
+
                 ).logout( logout -> logout.logoutSuccessUrl("/login?logout").permitAll()
 
 

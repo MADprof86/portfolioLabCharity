@@ -51,7 +51,7 @@ public class UserService {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Set<Role> role = getRoles();
+        Set<Role> role = getRoles("USER_ROLE");
         user.setRoles(role);
         return userRepository.save(user);
 
@@ -103,9 +103,15 @@ public class UserService {
         }
     }
 
-    private Set<Role> getRoles() throws DataNotFoundInDatabaseException {
+    private Set<Role> getRoles(String roleName) throws DataNotFoundInDatabaseException {
         Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName("ROLE_USER");
+        String roleType = "";
+        switch (roleName){
+            case "ROLE_ADMIN" :
+                roleType = "ROLE_ADMIN";
+            default: roleType = "ROLE_USER";
+        }
+        Role userRole = roleRepository.findByName(roleType);
         if(userRole == null){
             throw new DataNotFoundInDatabaseException("User ROLE not found");
         }
