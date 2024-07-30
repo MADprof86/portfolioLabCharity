@@ -34,10 +34,12 @@ public class AdminController {
         List<Donation> donationList = donationService.getAllDonations();
         List<Institution> institutionList = institutionService.getAllInstitutions();
         List<Category> categoryList = categoryService.getAllCategories();
+        Long numberOfBags = donationList.stream().mapToLong(Donation::getQuantity).sum();
         model.addAttribute("users",userList);
         model.addAttribute("donations",donationList);
         model.addAttribute("institutions",institutionList);
         model.addAttribute("categories", categoryList);
+        model.addAttribute("numberOfBags",numberOfBags);
         return "index-admin";
     }
 }
