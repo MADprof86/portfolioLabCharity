@@ -10,8 +10,11 @@ import java.util.Optional;
 
 @Service
 public class CategoryService {
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+
+    public CategoryService(CategoryRepository categoryRepository){
+        this.categoryRepository = categoryRepository;
+    }
 
     public List<Category> getAllCategories(){
         return  categoryRepository.findAll();
@@ -22,8 +25,7 @@ public class CategoryService {
     }
 
     public void deleteById(Long id){
-        if(categoryRepository.findById(id).isPresent())
-        {
+        if(categoryRepository.findById(id).isPresent()){
             categoryRepository.deleteById(id);
         }
         else return;
@@ -35,7 +37,4 @@ public class CategoryService {
         }
         else return new Category();
     }
-
-
-
 }

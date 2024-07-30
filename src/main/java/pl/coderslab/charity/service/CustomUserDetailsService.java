@@ -9,8 +9,12 @@ import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.repository.UserRepository;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findUserByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User with email not found"));

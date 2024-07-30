@@ -15,10 +15,14 @@ import java.util.Optional;
 @Controller
 
 public class HomeController {
-    @Autowired
-    private InstitutionRepository institutionRepository;
-    @Autowired
-    private DonationRepository donationRepository;
+    private final InstitutionRepository institutionRepository;
+    private final DonationRepository donationRepository;
+
+    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository) {
+        this.institutionRepository = institutionRepository;
+        this.donationRepository = donationRepository;
+    }
+
     @GetMapping("/")
     public String getHomePage(Model model){
         List<Donation> donations = donationRepository.findAll();

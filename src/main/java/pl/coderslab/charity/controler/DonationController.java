@@ -27,14 +27,16 @@ public class DonationController {
 
     private final String CONFIRMATION_MESSAGE = "Darownizna przyjęta do realizacji";
     private final String ERROR_MESSAGE = "Darownizna nie przyjęta z powodu będu: ";
-    @Autowired
-    private InstitutionRepository institutionRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
-    private DonationRepository donationRepository;
-    @Autowired
-    private DonationService donationService;
+    private final InstitutionRepository institutionRepository;
+    private final CategoryRepository categoryRepository;
+    private final DonationService donationService;
+
+    public DonationController(InstitutionRepository institutionRepository, CategoryRepository categoryRepository, DonationRepository donationRepository, DonationService donationService) {
+        this.institutionRepository = institutionRepository;
+        this.categoryRepository = categoryRepository;
+        this.donationService = donationService;
+    }
+
     @GetMapping()
     public String getDonationForm(Model model){
         List<Institution> institutions = institutionRepository.findAll();

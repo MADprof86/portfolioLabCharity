@@ -21,10 +21,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/profile")
 public class UserProfileController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private DonationService donationService;
+    private final UserService userService;
+    private final DonationService donationService;
+
+    public UserProfileController(UserService userService, DonationService donationService) {
+        this.userService = userService;
+        this.donationService = donationService;
+    }
 
     @GetMapping
     public String showProfile(@AuthenticationPrincipal User user,

@@ -10,8 +10,11 @@ import java.util.Optional;
 
 @Service
 public class InstitutionService {
-    @Autowired
-    private InstitutionRepository institutionRepository;
+    private final InstitutionRepository institutionRepository;
+
+    public InstitutionService(InstitutionRepository institutionRepository) {
+        this.institutionRepository = institutionRepository;
+    }
 
     public List<Institution> getAllInstitutions(){
         return institutionRepository.findAll();

@@ -18,9 +18,11 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/register")
 public class RegistrationController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     @GetMapping()
