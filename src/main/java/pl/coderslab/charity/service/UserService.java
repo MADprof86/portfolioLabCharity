@@ -12,6 +12,7 @@ import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -119,4 +120,7 @@ public class UserService {
         return roles;
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 }

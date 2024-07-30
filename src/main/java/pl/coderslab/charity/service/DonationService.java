@@ -49,4 +49,7 @@ public class DonationService {
     }
 
 
+    public List<Donation> getAllDonations() {
+        return donationRepository.findAll();
+    }
 }

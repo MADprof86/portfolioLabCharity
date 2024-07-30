@@ -13,7 +13,7 @@ public class InstitutionService {
     @Autowired
     private InstitutionRepository institutionRepository;
 
-    public List<Institution> findAll(){
+    public List<Institution> getAllInstitutions(){
         return institutionRepository.findAll();
     }
 
