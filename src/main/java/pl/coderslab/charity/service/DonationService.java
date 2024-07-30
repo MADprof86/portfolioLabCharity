@@ -55,4 +55,12 @@ public class DonationService {
     public List<Donation> getAllDonations() {
         return donationRepository.findAll();
     }
+
+    public Long getDonationsCount() {
+        return donationRepository.countDonations();
+    }
+
+    public Long getDonationsCountQuantity() {
+        return donationRepository.getDonationsCountQuantity();
+    }
 }

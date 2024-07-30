@@ -20,26 +20,23 @@ import java.util.List;
 @Controller
 @RequestMapping("/index-admin")
 public class AdminController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private DonationService donationService;
-    @Autowired
-    private InstitutionService institutionService;
-    @Autowired
-    private CategoryService categoryService;
+
+    private final DonationService donationService;
+
+
+
+    public AdminController(DonationService donationService) {
+
+        this.donationService = donationService;
+
+    }
+
     @GetMapping()
     public String getAdminForm(@AuthenticationPrincipal User user, Model model){
-        List<User> userList = userService.getAllUsers();
-        List<Donation> donationList = donationService.getAllDonations();
-        List<Institution> institutionList = institutionService.getAllInstitutions();
-        List<Category> categoryList = categoryService.getAllCategories();
-        Long numberOfBags = donationList.stream().mapToLong(Donation::getQuantity).sum();
+        Long numberOfDonations = donationService.getDonationsCount();
+        Long numberOfBags = donationService.getDonationsCountQuantity();
 
-        model.addAttribute("users",userList);
-        model.addAttribute("donations",donationList);
-        model.addAttribute("institutions",institutionList);
-        model.addAttribute("categories", categoryList);
+        model.addAttribute("numberOfDonations", numberOfDonations);
         model.addAttribute("numberOfBags",numberOfBags);
 
         return "index-admin";

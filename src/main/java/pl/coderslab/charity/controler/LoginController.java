@@ -22,8 +22,11 @@ import pl.coderslab.charity.service.UserService;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public LoginController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     @GetMapping()
