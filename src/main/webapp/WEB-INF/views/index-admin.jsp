@@ -74,8 +74,23 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="#INSTITUTIONS">Buttons</a>
-                        <a class="collapse-item" href="/WEB-INF/views/cards.html">Cards</a>
+                        <a class="collapse-item" href="#INSTITUTIONS">Instytucje</a>
+                        <a class="collapse-item" href="#USERS">Użytkownicy</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                   aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-atom"></i>
+                    <span>Zarządzaj przekazami</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">NOEWE</h6>
+                        <a class="collapse-item" href="#Donations">Przekazane Dary</a>
+
                     </div>
                 </div>
             </li>
@@ -390,8 +405,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                               Donations </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                               Last 30 days Donatnions </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${numberOfDonationsLast30Days}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>

@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import pl.coderslab.charity.model.Donation;
 import pl.coderslab.charity.model.User;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface DonationRepository  extends JpaRepository<Donation,Long> {
@@ -15,5 +17,8 @@ public interface DonationRepository  extends JpaRepository<Donation,Long> {
 
     @Query("SELECT sum(d.quantity) from Donation d")
     Long getDonationsCountQuantity();
+
+    @Query("SELECT count(d) FROM Donation d WHERE d.pickUpDate >= :date")
+    Long countDonationsFromLast30Days(LocalDate date);
 
 }

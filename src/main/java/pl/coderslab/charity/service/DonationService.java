@@ -1,12 +1,12 @@
 package pl.coderslab.charity.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.model.Donation;
-import pl.coderslab.charity.model.Institution;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.repository.DonationRepository;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,5 +62,10 @@ public class DonationService {
 
     public Long getDonationsCountQuantity() {
         return donationRepository.getDonationsCountQuantity();
+    }
+
+    public Long countDonationsFromLast30Days() {
+        LocalDate date = LocalDate.now().minusDays(30);
+        return donationRepository.countDonationsFromLast30Days(date);
     }
 }
