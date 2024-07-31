@@ -12,7 +12,7 @@ public interface DonationRepository  extends JpaRepository<Donation,Long> {
 
     List<Donation> findAllByUser(User user);
 
-    Long getAllByq
+
     @Query("SELECT sum(d.quantity) from Donation d")
     Long getDonationsCountQuantity();
 
