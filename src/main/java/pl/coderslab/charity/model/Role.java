@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,8 +21,8 @@ public class Role implements GrantedAuthority {
     @NonNull
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 
     @Override
     public String getAuthority() {

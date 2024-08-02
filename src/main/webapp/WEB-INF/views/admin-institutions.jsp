@@ -72,7 +72,7 @@
                                         <td>${institution.name}</td>
                                         <td>${institution.description}</td>
                                         <td>${donationsByInstitutions.get(institution)}</td>
-<%--                                        <td><c:if test="${donationsByInstitutions.get(institution) != null ? donationsByInstitutions.get(institution) : 0 }"></c:if> </td>--%>
+
                                         <td>
                                         <a href="delete" class="btn-danger">Usuń</a>
                                         <a href="edit" class="btn-warning">Edycja</a>

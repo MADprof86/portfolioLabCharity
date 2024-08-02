@@ -51,8 +51,8 @@ public class UserService {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Set<Role> role = getRolesForUser("USER_ROLE");
-        user.setRoles(role);
+        Role role = getRoleForUser("USER_ROLE");
+        user.setRole(role);
         return userRepository.save(user);
 
     }
@@ -103,10 +103,10 @@ public class UserService {
         }
     }
 
-    private Set<Role> getRolesForUser(String roleName) throws DataNotFoundInDatabaseException {
-        Set<Role> roles = new HashSet<>();
+    private Role getRoleForUser(String roleName) throws DataNotFoundInDatabaseException {
         String roleType = "";
         switch (roleName){
+
             case "ROLE_ADMIN" :
                 roleType = "ROLE_ADMIN";
             default: roleType = "ROLE_USER";
@@ -115,8 +115,8 @@ public class UserService {
         if(userRole == null){
             throw new DataNotFoundInDatabaseException("User ROLE not found");
         }
-        roles.add(userRole);
-        return roles;
+
+        return userRole;
     }
     public HashMap<User,Long> getDonationsCountForUsersMap(){
         List<Object[]> users =  userRepository.findUserByDonationCount();

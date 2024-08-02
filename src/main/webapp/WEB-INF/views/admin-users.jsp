@@ -73,7 +73,7 @@
                                     <td>${siteUser.email}</td>
                                     <td>${siteUser.id}</td>
                                     <td>${usersDonationCount.get(siteUser)}</td>
-                                    <td>ROLE</td>
+                                    <td>${siteUser.role.name}</td>
                                     <td>
                                         <a href="delete" class="btn-danger">Usuń</a>
                                         <a href="edit" class="btn-warning">Edycja</a>
