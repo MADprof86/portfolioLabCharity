@@ -23,14 +23,22 @@ public class AdminController {
     }
 
     @GetMapping()
-    public String getAdminForm(@AuthenticationPrincipal User user, Model model){
+    public String getAdminView(@AuthenticationPrincipal User user, Model model){
         Long numberOfDonations = donationService.getDonationsCount();
         Long numberOfBags = donationService.getDonationsCountQuantity();
         Long numberOfDonationsIn30DaysPeriod = donationService.countDonationsFromLast30Days();
+
+        model.addAttribute("user",user);
         model.addAttribute("numberOfDonationsLast30Days",numberOfDonationsIn30DaysPeriod);
         model.addAttribute("numberOfDonations", numberOfDonations);
         model.addAttribute("numberOfBags",numberOfBags);
 
         return "index-admin";
+    }
+    @GetMapping("/admin-profile")
+    public String getAdminProfileView(@AuthenticationPrincipal User user, Model model){
+
+        model.addAttribute("user", user);
+        return "admin-profile";
     }
 }
