@@ -1,6 +1,5 @@
 package pl.coderslab.charity.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.exceptions.DataNotFoundInDatabaseException;
@@ -11,10 +10,7 @@ import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -55,7 +51,7 @@ public class UserService {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Set<Role> role = getRoles("USER_ROLE");
+        Set<Role> role = getRolesForUser("USER_ROLE");
         user.setRoles(role);
         return userRepository.save(user);
 
@@ -107,7 +103,7 @@ public class UserService {
         }
     }
 
-    private Set<Role> getRoles(String roleName) throws DataNotFoundInDatabaseException {
+    private Set<Role> getRolesForUser(String roleName) throws DataNotFoundInDatabaseException {
         Set<Role> roles = new HashSet<>();
         String roleType = "";
         switch (roleName){
@@ -121,6 +117,16 @@ public class UserService {
         }
         roles.add(userRole);
         return roles;
+    }
+    public HashMap<User,Long> getDonationsCountForUsersMap(){
+        List<Object[]> users =  userRepository.findUserByDonationCount();
+        HashMap hashMap = new HashMap<>();
+        for (Object[] result : users) {
+            User user = (User) result[0];
+            Long donationCount = (Long) result[1];
+            hashMap.put(user,donationCount);
+        }
+        return hashMap;
     }
 
     public List<User> getAllUsers() {

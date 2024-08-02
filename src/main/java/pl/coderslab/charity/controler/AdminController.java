@@ -86,4 +86,11 @@ public class AdminController {
 
         return "admin-institutions";
     }
+    @GetMapping("/admin-users")
+    public String getUsers(@AuthenticationPrincipal User user, Model model){
+        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("usersDonationCount", userService.getDonationsCountForUsersMap());
+        return "admin-users";
+    }
+
 }

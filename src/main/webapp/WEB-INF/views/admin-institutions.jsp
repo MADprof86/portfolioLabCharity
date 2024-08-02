@@ -71,7 +71,8 @@
                                     <tr>
                                         <td>${institution.name}</td>
                                         <td>${institution.description}</td>
-                                        <td>${donationsByInstitutions.get(institution)}
+                                        <td>${donationsByInstitutions.get(institution)}</td>
+<%--                                        <td><c:if test="${donationsByInstitutions.get(institution) != null ? donationsByInstitutions.get(institution) : 0 }"></c:if> </td>--%>
                                         <td>
                                         <a href="delete" class="btn-danger">Usuń</a>
                                         <a href="edit" class="btn-warning">Edycja</a>
@@ -84,20 +85,13 @@
                             </div>
                         </div>
 
-            </div>
+                    </div>
 
                 <tags:admin-footer/>
-        </div>
+            </div>
         <!-- /.container-fluid -->
+        </div>
     </div>
-
-    </div>
-
-
-
-
-
-
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
