@@ -54,12 +54,12 @@ public class DonationController {
                                RedirectAttributes redirectAttributes,
                                @AuthenticationPrincipal User user){
 
-        System.out.println(donation.toString());
+
 
             if(result.hasErrors()){
 
                 redirectAttributes.addFlashAttribute("error", ERROR_MESSAGE);
-                return "redirect:/donation";
+                return "redirect:donation";
             }
             if(user!=null){
                 donation.setUser(user);
@@ -68,11 +68,11 @@ public class DonationController {
                 Donation newDonation = donationService.save(donation);
                 redirectAttributes.addFlashAttribute("donationSuccessfullyAdded",newDonation);
                 redirectAttributes.addFlashAttribute("success", CONFIRMATION_MESSAGE);
-                return "redirect:/donation";
+                return "redirect:donation";
             }
             catch (Exception e){
                 redirectAttributes.addFlashAttribute("error", ERROR_MESSAGE + e.getMessage());
-                return "redirect:/donation";
+                return "redirect:donation";
             }
 
     }

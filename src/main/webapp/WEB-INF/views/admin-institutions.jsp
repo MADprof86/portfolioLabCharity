@@ -84,11 +84,33 @@
                                 </table>
                             </div>
                         </div>
+                <form:form class="form" action="/index-admin/admin-institutions" method="post" modelAttribute="institution">
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-6 mb-sm-0">
+                            <label>Nazwa fundacji</label>
+                            <input type="text" class="form-control form-control-user" id="name" name="name" value="Nazwa fundacji">
+                        </div>
+                        <div class="col-sm-6 mb-6 mb-sm-0">
+                            <label>Opis fundacji</label>
+                            <textarea class="form-control form-control-user" id="description" name="description" ></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary btn-user btn-block" >
+                                Dodaj nową fundację
+                            </button>
+                        </div>
+                    </div>
+                </form:form>
 
                     </div>
 
                 <tags:admin-footer/>
             </div>
+
         <!-- /.container-fluid -->
         </div>
     </div>
@@ -150,4 +172,3 @@
 
 </body>
 
-</html>

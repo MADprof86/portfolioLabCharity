@@ -1,10 +1,12 @@
 package pl.coderslab.charity.controler;
 
+import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.charity.exceptions.DataNotFoundInDatabaseException;
 import pl.coderslab.charity.exceptions.EmailUsedException;
 import pl.coderslab.charity.exceptions.PasswordMismatchException;
@@ -83,11 +85,26 @@ public class AdminController {
 
         model.addAttribute("institutions", institutionService.getAllInstitutions());
         model.addAttribute("donationsByInstitutions",donationService.getDonationsByInstitutionsMap() );
-
+        model.addAttribute("institution",new Institution());
         return "admin-institutions";
+    }
+    @PostMapping("/admin-institutions")
+    public String createNewInstitution(@ModelAttribute("institution") @Valid Institution institution,
+                                       BindingResult bindingResult,
+                                       RedirectAttributes redirectAttributes,
+                                       Model model){
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("error","Institution not saved");
+            return ("redirect:admin-institutions");
+        }
+        institutionService.save(institution);
+        return "redirect:admin-institutions";
+
+
     }
     @GetMapping("/admin-users")
     public String getUsers(@AuthenticationPrincipal User user, Model model){
+
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("usersDonationCount", userService.getDonationsCountForUsersMap());
         return "admin-users";
