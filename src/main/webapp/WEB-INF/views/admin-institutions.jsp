@@ -17,13 +17,10 @@
 
     <!-- Custom fonts for this template-->
     <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
-
-    <!-- Custom styles for this template-->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value='/resources/css/sb-admin-2.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/css/sb-admin-2.min.css'/>"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <script src="<c:url value='/resources/js/sb-admin-2.js'/>"></script>
 
 
@@ -48,58 +45,58 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Profil</h1>
-                </div>
+                <h1 class="h3 mb-2 text-gray-800">Instytucje współpracujące z serwisem</h1>
+                <p class="mb-4"> Szczegóły instytucji
 
-                    <form class="user">
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-6 mb-sm-0">
-                                <input type="text" class="form-control form-control-user" id="userName" value="${user.username}">
-                            </div>
-                            <div class="col-sm-6 mb-6 mb-sm-0">
-                                <select class="form-control form-control-user" id="roles" multiple>
-                                    <c:forEach var="role" items="${roles}">
-                                        <option value="${role.name}" <c:if test="${user.roles.contains(role)}">selected</c:if>>${role.name}</option>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda atque cum deleniti doloremque ea est fuga, fugit ipsum minus numquam perferendis praesentium quas quia, quibusdam quis repellendus reprehenderit similique voluptatibus.</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>Nazwa</th>
+                                        <th>Opis</th>
+                                        <th>Przyjętych darowizn</th>
+                                        <th>Akcje</th>
+
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <c:forEach items="${institutions}" var="institution">
+                                    <tr>
+                                        <td>${institution.name}</td>
+                                        <td>${institution.description}</td>
+                                        <td>${donationsByInstitutions.get(institution)}
+                                        <td>
+                                        <a href="delete" class="btn-danger">Usuń</a>
+                                        <a href="edit" class="btn-warning">Edycja</a>
+
+                                        </td>
                                     </c:forEach>
-                                </select>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm0">
-                                <input type="password" class="form-control form-control-user" id="password">
-                            </div>
-                            <div class="col-sm-6 mb-3 mb-sm0">
-                                <input type="password" class="form-control form-control-user" id="passwordRepeat">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Save Changes
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-
-
 
             </div>
-            <!-- /.container-fluid -->
-        <tags:admin-footer/>
+
+                <tags:admin-footer/>
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-
+        <!-- /.container-fluid -->
+    </div>
 
     </div>
-    <!-- End of Content Wrapper -->
 
 
-<!-- End of Page Wrapper -->
+
+
+
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
@@ -142,6 +139,20 @@
 <!-- Page level custom scripts -->
 <script src="/resources/js/demo/chart-area-demo.js"></script>
 <script src="/resources/js/demo/chart-pie-demo.js"></script>
+
+
+        <!-- DataTables JavaScript -->
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Initialize DataTables -->
+        <script>
+            $(document).ready(function() {
+                $('#dataTable').DataTable({
+                    "pageLength": 10
+                });
+            });
+        </script>
 
 </body>
 

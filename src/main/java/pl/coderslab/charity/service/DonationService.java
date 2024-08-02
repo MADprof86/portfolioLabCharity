@@ -2,12 +2,14 @@ package pl.coderslab.charity.service;
 
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.model.Donation;
+import pl.coderslab.charity.model.Institution;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.repository.DonationRepository;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -67,5 +69,18 @@ public class DonationService {
     public Long countDonationsFromLast30Days() {
         LocalDate date = LocalDate.now().minusDays(30);
         return donationRepository.countDonationsFromLast30Days(date);
+    }
+
+    public HashMap<Institution, Long> getDonationsByInstitutionsMap() {
+            List<Object[]> institutionsList = donationRepository.countDonationByInstitutions();
+            HashMap<Institution,Long> hashMap = new HashMap<>();
+            for(Object[] result : institutionsList){
+
+                Institution institution = (Institution) result[0];
+                Long numberOfDonations = (Long) result[1];
+                hashMap.put(institution,numberOfDonations);
+
+            }
+            return hashMap;
     }
 }

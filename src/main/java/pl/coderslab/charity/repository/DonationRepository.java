@@ -21,4 +21,7 @@ public interface DonationRepository  extends JpaRepository<Donation,Long> {
     @Query("SELECT count(d) FROM Donation d WHERE d.pickUpDate >= :date")
     Long countDonationsFromLast30Days(LocalDate date);
 
+    @Query("SELECT d.institution, COUNT(d) FROM Donation d GROUP BY d.institution")
+    List<Object[]> countDonationByInstitutions();
+
 }
